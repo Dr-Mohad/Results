@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="so">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Natiijooyinka Imtixaanka - Jamacadda Ummada Soomaaliyeed</title>
+  <style>
+    /* CSS Styling */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* Header */
+    header {
+      background-color: #2c3e50;
+      color: white;
+      width: 100%;
+      padding: 1rem 0;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: flex-start; /* Align content to the left */
+      padding-left: 20px; /* Add some padding to the left */
+    }
+
+    header img {
+      height: 110px; /* Increased logo size */
+      margin-right: 20px; /* Space between logo and text */
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      line-height: 1.2;
+      text-align: left; /* Align text to the left */
+      white-space: nowrap; /* Prevent text from wrapping */
+    }
+
+    header h1 span {
+      display: block; /* Makes the text appear on a new line */
+      font-size: 1.4rem;
+      margin-top: 5px;
+      text-align: center; /* Align text to the left */
+      white-space: nowrap; /* Prevent text from wrapping */
+    }
+    /* Responsive Font Size for Mobile */
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 1.0rem; /* Smaller font size for mobile */
+      }
+      header h1 span {
+        font-size: 0.9rem; /* Smaller font size for mobile */
+      }
+    }
+
+
+    /* Main Container */
+    .container {
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      max-width: 500px;
+      width: 100%;
+      margin: 2rem 0;
+      flex: 1;
+    }
+
+    h1 {
+      color: white;
+      margin-bottom: 1rem;
+    }
+
+    input {
+      padding: 0.5rem;
+      font-size: 1rem;
+      width: 80%;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      padding: 0.5rem 1rem;
+      font-size: 1rem;
+      background-color: #3498db;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    #results, #error {
+      margin-top: 2rem;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+    }
+
+    th, td {
+      padding: 0.75rem;
+      border: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #3498db;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    /* Footer */
+    footer {
+      background-color: #2c3e50;
+      color: white;
+      width: 100%;
+      text-align: center;
+      padding: 1rem 0;
+      margin-top: auto;
+    }
+
+    footer p {
+      margin: 0;
+    }
+    #mm{
+        color: black;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <img src="Somali-National-University-1536x1536_processed.png" alt="Logo Jamacadda"> <!-- Ku beddel logo-gaaga -->
+    <h1>
+      Jamacadda Ummada Soomaaliyeed
+      <span>Somali National University</span>
+    </h1>
+  </header>
+
+  <!-- Main Container -->
+  <div class="container">
+    <h1 id = 'mm'>Natiijooyinka Imtixaanka Ardayda Faculty of Science(Batch-5-Cs-Class-A) </h1>
+    <p>Geli Aqoonsiga Ardayga:</p>
+    <!-- <a href='photo_6023606584153851502_x.jpg' download>Download</a> -->
+     <!-- <form action="http:// 192.168.1.9:5500/submit",method="post"> -->
+    <input type="text" id="studentId" placeholder="Geli Aqoonsiga Arday-ga">
+    <button type="submit"onclick="fetchResults()">Raadi Natiijadaa</button>
+    <!-- </form> -->
+
+    <!-- Qaybta Natiijooyinka -->
+    <div id="results" class="hidden">
+      <h2>Natiijooyinka Ardayga</h2>
+      <p><strong>Magaca:</strong> <span id="studentName"></span></p>
+      <table>
+        <thead>
+          <tr>
+            <th>Maadooyin-ka</th>
+            <th>Dhibcaha</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr> 
+            <td>CalculusI</td>
+            <td id="mathScore"></td>
+          </tr>
+          <tr>
+            <td>ComputerApplication</td>
+            <td id="computerAppScore"></td>
+          </tr>
+          <tr>
+            <td>PythonI</td>
+            <td id="pythonScore"></td>
+          </tr>
+          <tr>
+            <td>IntroductionToComputer</td>
+            <td id="introCsScore"></td>
+          </tr>
+          <tr>
+            <td>EnglishI</td>
+            <td id="englishScore"></td>
+          </tr>
+            <tr>
+            <td>Average</td>
+            <td id="Average"></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Farriin Khalad -->
+    <div id="error" class="hidden">
+      <p>Wax natiijo ah lama helin aqoonsiga ardayga la geliyay.</p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2023 Jamacadda Ummada Soomaaliyeed. Dhammaan xuquuqdu waa la xifdiyay.</p>
+  </footer>
+
+  <script>
+    // JavaScript Logic
+    const studentData = [
+  {
+    studentId: "B5SC1001",
+    name: "Bishaar Maxamud Abdirizaq",
+    calculusI: 75,
+    computerApplication: 85,
+    pythonI: 67,
+    introductionToComputer: 72,
+    englishI: 69,
+    average: 74
+  },
+  {
+    studentId: "B5SC1130",
+    name: "Maxamed Cabdirisaaq Bashir",
+    calculusI: 0,
+    computerApplication: 0,
+    pythonI: 0,
+    introductionToComputer: 0,
+    englishI: 0,
+    average: 0
+  },
+  {
+    studentId: "B5SC1379",
+    name: "Ayaan Maxamed Jaamac",
+    calculusI: 70,
+    computerApplication: 49,
+    pythonI: 72,
+    introductionToComputer: 93,
+    englishI: 80,
+    average: 73
+  },
+  {
+    studentId: "B5SC1381",
+    name: "Ayaan c/Jaahi caalim Faarax",
+    calculusI: 72,
+    computerApplication: 82,
+    pythonI: 68,
+    introductionToComputer: 63,
+    englishI: 74,
+    average: 72
+  },
+  {
+    studentId: "B5SC1405",
+    name: "Asmo Cabdullahi Xasan Aadan",
+    calculusI: 71,
+    computerApplication: 79,
+    pythonI: 62,
+    introductionToComputer: 70,
+    englishI: 60,
+    average: 68
+  },
+  {
+    studentId: "B5SC1412",
+    name: "Ilhaan Maxamed Xaashi Maxamudd",
+    calculusI: 82,
+    computerApplication: 77,
+    pythonI: 60,
+    introductionToComputer: 60,
+    englishI: 61,
+    average: 68
+  },
+  {
+    studentId: "B5SC1423",
+    name: "Sihaam mohamed Abuukar",
+    calculusI: 73,
+    computerApplication: 83,
+    pythonI: 65,
+    introductionToComputer: 73,
+    englishI: 73,
+    average: 73
+  },
+  {
+    studentId: "B5SC1424",
+    name: "Saariyo mohamed Abuukar",
+    calculusI: 82,
+    computerApplication: 83,
+    pythonI: 65,
+    introductionToComputer: 71,
+    englishI: 73,
+    average: 75
+  },
+  {
+    studentId: "B5SC1438",
+    name: "Maxamed Cabdi Muxumed",
+    calculusI: 81,
+    computerApplication: 73,
+    pythonI: 71,
+    introductionToComputer: 63,
+    englishI: 77,
+    average: 73
+  },
+  {
+    studentId: "B5SC1444",
+    name: "Ridwaan Maxamed Rashild",
+    calculusI: 72,
+    computerApplication: 89,
+    pythonI: 74,
+    introductionToComputer: 67,
+    englishI: 76,
+    average: 76
+  },
+  {
+    studentId: "B5SC1456",
+    name: "Cabdiwali mukhtaar Maxmed",
+    calculusI: 76,
+    computerApplication: 86,
+    pythonI: 67,
+    introductionToComputer: 70,
+    englishI: 82,
+    average: 76
+  },
+  {
+    studentId: "B5SC1476",
+    name: "Safiyo Cabdullahi Sild Cusmaan",
+    calculusI: 55,
+    computerApplication: 75,
+    pythonI: 60,
+    introductionToComputer: 37,
+    englishI: 61,
+    average: 60
+  },
+  {
+    studentId: "B5SC1480",
+    name: "Ramla Axmed Maxamed",
+    calculusI: 0,
+    computerApplication: 0,
+    pythonI: 0,
+    introductionToComputer: 0,
+    englishI: 0,
+    average: 0
+  },
+  {
+    studentId: "B5SC1486",
+    name: "Deeqo Cabdi Cali Daimar",
+    calculusI: 78,
+    computerApplication: 84,
+    pythonI: 63,
+    introductionToComputer: 60,
+    englishI: 63,
+    average: 70
+  },
+  {
+    studentId: "B5SC1500",
+    name: "Raxmo Yuusuf Abuukar Maxamudd",
+    calculusI: 81,
+    computerApplication: 73,
+    pythonI: 61,
+    introductionToComputer: 28,
+    englishI: 72,
+    average: 63
+  },
+  {
+    studentId: "B5SC1520",
+    name: "Axmed Xuseen Maxamed",
+    calculusI: 70,
+    computerApplication: 85,
+    pythonI: 79,
+    introductionToComputer: 83,
+    englishI: 91,
+    average: 82
+  },
+  {
+    studentId: "B5SC1522",
+    name: "Iqro Cumar Axmed",
+    calculusI: 73,
+    computerApplication: 82,
+    pythonI: 85,
+    introductionToComputer: 90,
+    englishI: 80,
+    average: 82
+  },
+  {
+    studentId: "B5SC1523",
+    name: "Maxamed Yuusuf Xasan Habarwaay",
+    calculusI: 85,
+    computerApplication: 83,
+    pythonI: 81,
+    introductionToComputer: 85,
+    englishI: 90,
+    average: 85
+  },
+  {
+    studentId: "B5SC1526",
+    name: "Cabdinajilb Xuseen Maxamed Climi",
+    calculusI: 74,
+    computerApplication: 86,
+    pythonI: 92,
+    introductionToComputer: 50,
+    englishI: 78,
+    average: 76
+  },
+  {
+    studentId: "B5SC1527",
+    name: "Cabdirahman Ahmed Mohamed",
+    calculusI: 90,
+    computerApplication: 94,
+    pythonI: 77,
+    introductionToComputer: 84,
+    englishI: 62,
+    average: 81
+  },
+  {
+    studentId: "B5SC1528",
+    name: "Mahad Maxamed Cabdi Ibrahim",
+    calculusI: 86,
+    computerApplication: 87,
+    pythonI: 97,
+    introductionToComputer: 92,
+    englishI: 80,
+    average: 88
+  },
+  {
+    studentId: "B5SC1534",
+    name: "Caisha Maxamed Climi Farax",
+    calculusI: 81,
+    computerApplication: 78,
+    pythonI: 75,
+    introductionToComputer: 75,
+    englishI: 61,
+    average: 74
+  },
+  {
+    studentId: "B5SC1538",
+    name: "Shuceyb Cabdiraxmaan Cali",
+    calculusI: 0,
+    computerApplication: 0,
+    pythonI: 0,
+    introductionToComputer: 0,
+    englishI: 0,
+    average: 0
+  },
+  {
+    studentId: "B5SC1541",
+    name: "Cabduqaadir Maxamed Xasan",
+    calculusI: 0,
+    computerApplication: 0,
+    pythonI: 0,
+    introductionToComputer: 0,
+    englishI: 0,
+    average: 0
+  },
+  {
+    studentId: "B5SC1542",
+    name: "Ayuub idriis Cabdiraxlin.",
+    calculusI: 52,
+    computerApplication: 76,
+    pythonI: 87,
+    introductionToComputer: 86,
+    englishI: 64,
+    average: 73
+  },
+  {
+    studentId: "B5SC1545",
+    name: "Cabdinaasir Cabdirisaaq Cabdullahi",
+    calculusI: 94,
+    computerApplication: 89,
+    pythonI: 91,
+    introductionToComputer: 91,
+    englishI: 86,
+    average: 90
+  },
+  {
+    studentId: "B5SC1547",
+    name: "Anas Maxamud Cabdi",
+    calculusI: 95,
+    computerApplication: 82,
+    pythonI: 84,
+    introductionToComputer: 90,
+    englishI: 83,
+    average: 87
+  },
+  {
+    studentId: "B5SC1548",
+    name: "Faysal Gallad Abdirahman Rage",
+    calculusI: 66,
+    computerApplication: 73,
+    pythonI: 73,
+    introductionToComputer: 76,
+    englishI: 65,
+    average: 71
+  },
+  {
+    studentId: "B5SC1558",
+    name: "Nihaal Abdirizak Muqtar",
+    calculusI: 81,
+    computerApplication: 82,
+    pythonI: 74,
+    introductionToComputer: 86,
+    englishI: 75,
+    average: 80
+  },
+  {
+    studentId: "B5SC1562",
+    name: "Xasan Cali Qafaal Indhayare",
+    calculusI: 78,
+    computerApplication: 81,
+    pythonI: 84,
+    introductionToComputer: 93,
+    englishI: 83,
+    average: 84
+  },
+  {
+    studentId: "B5SC1564",
+    name: "Muscab Cabdiwell Nuur",
+    calculusI: 89,
+    computerApplication: 85,
+    pythonI: 84,
+    introductionToComputer: 83,
+    englishI: 92,
+    average: 87
+  },
+  {
+    studentId: "B5SC1566",
+    name: "Axmed Maxamed Xasan Nuur",
+    calculusI: 60,
+    computerApplication: 90,
+    pythonI: 67,
+    introductionToComputer: 64,
+    englishI: 69,
+    average: 70
+  },
+  {
+    studentId: "B5SC1568",
+    name: "Shahad Daakir Maxamudd Cabdullahi",
+    calculusI: 89,
+    computerApplication: 79,
+    pythonI: 61,
+    introductionToComputer: 61,
+    englishI: 68,
+    average: 72
+  },
+  {
+    studentId: "B5SC1569",
+    name: "Xamdi Cumar Cali",
+    calculusI: 90,
+    computerApplication: 87,
+    pythonI: 85,
+    introductionToComputer: 98,
+    englishI: 82,
+    average: 88
+  },
+  {
+    studentId: "B5SC1575",
+    name: "Yaxye Cabdirisaaq Cali Xaashi",
+    calculusI: 67,
+    computerApplication: 71,
+    pythonI: 83,
+    introductionToComputer: 84,
+    englishI: 73,
+    average: 76
+  },
+  {
+    studentId: "B5SC1578",
+    name: "Xamdi Ibrahim Maxamed",
+    calculusI: 79,
+    computerApplication: 74,
+    pythonI: 61,
+    introductionToComputer: 74,
+    englishI: 75,
+    average: 73
+  },
+  {
+    studentId: "B5SC1579",
+    name: "Cabdulahi Warsame Maxmed",
+    calculusI: 76,
+    computerApplication: 87,
+    pythonI: 80,
+    introductionToComputer: 90,
+    englishI: 81,
+    average: 83
+  },
+  {
+    studentId: "B5SC1582",
+    name: "Cabdumalik Abdullahi Mohamed",
+    calculusI: 98,
+    computerApplication: 93,
+    pythonI: 88,
+    introductionToComputer: 100,
+    englishI: 93,
+    average: 94
+  },
+  {
+    studentId: "B5SC1583",
+    name: "Litbaan daahir kaariye",
+    calculusI: 75,
+    computerApplication: 74,
+    pythonI: 79,
+    introductionToComputer: 50,
+    englishI: 60,
+    average: 68
+  },
+  {
+    studentId: "B5SC1586",
+    name: "Khalid Mohamed Farah Ali",
+    calculusI: 90,
+    computerApplication: 94,
+    pythonI: 91,
+    introductionToComputer: 82,
+    englishI: 87,
+    average: 89
+  },
+  {
+    studentId: "B5SC1587",
+    name: "Cayni Abuukar Maxamudd",
+    calculusI: 72,
+    computerApplication: 84,
+    pythonI: 73,
+    introductionToComputer: 95,
+    englishI: 81,
+    average: 81
+  },
+  {
+    studentId: "B5SC1588",
+    name: "Cabdisamad Ibrahim Maxamed",
+    calculusI: 72,
+    computerApplication: 83,
+    pythonI: 75,
+    introductionToComputer: 88,
+    englishI: 66,
+    average: 77
+  },
+  {
+    studentId: "B5SC1589",
+    name: "Cabdiraxmaan Cabdiqaadir salad",
+    calculusI: 33,
+    computerApplication: 74,
+    pythonI: 86,
+    introductionToComputer: 71,
+    englishI: 60,
+    average: 65
+  },
+  {
+    studentId: "B5SC1592",
+    name: "Khadar Cabdi Axmed",
+    calculusI: 30,
+    computerApplication: 73,
+    pythonI: 90,
+    introductionToComputer: 70,
+    englishI: 60,
+    average: 65
+  },
+  {
+    studentId: "B5SC1595",
+    name: "Cabdiqaadir Cabdullahi Fildshe",
+    calculusI: 90,
+    computerApplication: 84,
+    pythonI: 80,
+    introductionToComputer: 81,
+    englishI: 67,
+    average: 80
+  },
+  {
+    studentId: "B5SC1596",
+    name: "Sakariye maxamed abuubakar",
+    calculusI: 71,
+    computerApplication: 81,
+    pythonI: 63,
+    introductionToComputer: 84,
+    englishI: 73,
+    average: 74
+  },
+  {
+    studentId: "B5SC1601",
+    name: "Maxamed Isaaq Xasan",
+    calculusI: 99,
+    computerApplication: 83,
+    pythonI: 83,
+    introductionToComputer: 66,
+    englishI: 80,
+    average: 82
+  },
+  {
+    studentId: "B5SC1603",
+    name: "Cabdullahi Farah Warsame Siyad",
+    calculusI: 94,
+    computerApplication: 82,
+    pythonI: 91,
+    introductionToComputer: 97,
+    englishI: 79,
+    average: 89
+  },
+  {
+    studentId: "B5SC1604",
+    name: "Xiaawa nurur axmed limaan",
+    calculusI: 40,
+    computerApplication: 74,
+    pythonI: 84,
+    introductionToComputer: 55,
+    englishI: 82,
+    average: 67
+  },
+  {
+    studentId: "B5SC1609",
+    name: "Jabrii Ibrahim Aadan",
+    calculusI: 100,
+    computerApplication: 83,
+    pythonI: 87,
+    introductionToComputer: 95,
+    englishI: 86,
+    average: 90
+  },
+  {
+    studentId: "B5SC1611",
+    name: "Khadro Cali Xasan",
+    calculusI: 90,
+    computerApplication: 79,
+    pythonI: 75,
+    introductionToComputer: 74,
+    englishI: 69,
+    average: 77
+  },
+  {
+    studentId: "B5SC1613",
+    name: "Axmed Siyaad Waasuge Calasow",
+    calculusI: 83,
+    computerApplication: 78,
+    pythonI: 85,
+    introductionToComputer: 73,
+    englishI: 84,
+    average: 81
+  },
+  {
+    studentId: "B5SC1615",
+    name: "Muna Cali Xuseen",
+    calculusI: 96,
+    computerApplication: 82,
+    pythonI: 80,
+    introductionToComputer: 85,
+    englishI: 76,
+    average: 84
+  },
+  {
+    studentId: "B5SC1616",
+    name: "Cabdicaslis Cabdiraxin Xasan Climi",
+    calculusI: 96,
+    computerApplication: 80,
+    pythonI: 79,
+    introductionToComputer: 99,
+    englishI: 82,
+    average: 87
+  },
+  {
+    studentId: "B5SC1617",
+    name: "Xassan Cabdirashid Xassan",
+    calculusI: 93,
+    computerApplication: 80,
+    pythonI: 73,
+    introductionToComputer: 75,
+    englishI: 62,
+    average: 77
+  },
+  {
+    studentId: "B5SC1623",
+    name: "Calas Cabdullahi duqow",
+    calculusI: 83,
+    computerApplication: 88,
+    pythonI: 81,
+    introductionToComputer: 93,
+    englishI: 92,
+    average: 87
+  },
+  {
+    studentId: "B5SC1626",
+    name: "Rayaan Cabdiqaadir Xuseen Cashara",
+    calculusI: 69,
+    computerApplication: 75,
+    pythonI: 87,
+    introductionToComputer: 82,
+    englishI: 79,
+    average: 78
+  },
+  {
+    studentId: "B5SC1627",
+    name: "Nasteexo Cadow Shuuriye",
+    calculusI: 44,
+    computerApplication: 84,
+    pythonI: 84,
+    introductionToComputer: 60,
+    englishI: 91,
+    average: 73
+  },
+  {
+    studentId: "B5SC1633",
+    name: "Cabdinasir Farah Abdullahi",
+    calculusI: 81,
+    computerApplication: 85,
+    pythonI: 87,
+    introductionToComputer: 83,
+    englishI: 95,
+    average: 86
+  },
+  {
+    studentId: "B5SC1634",
+    name: "Cabdullahi Muuse Cabdullahi",
+    calculusI: 95,
+    computerApplication: 88,
+    pythonI: 87,
+    introductionToComputer: 84,
+    englishI: 82,
+    average: 87
+  },
+  {
+    studentId: "B5SC1638",
+    name: "Bushra Xasan Mire Maxamed",
+    calculusI: 74,
+    computerApplication: 84,
+    pythonI: 71,
+    introductionToComputer: 84,
+    englishI: 82,
+    average: 79
+  },
+  {
+    studentId: "B5SC1639",
+    name: "Maaida Maxamud Call Maxamed",
+    calculusI: 88,
+    computerApplication: 80,
+    pythonI: 81,
+    introductionToComputer: 71,
+    englishI: 77,
+    average: 79
+  },
+  {
+    studentId: "B5SC1642",
+    name: "Suldaan Cabdi Cali",
+    calculusI: 81,
+    computerApplication: 71,
+    pythonI: 65,
+    introductionToComputer: 77,
+    englishI: 65,
+    average: 72
+  },
+  {
+    studentId: "B5SC1645",
+    name: "Cumar Ali Maxamud",
+    calculusI: 97,
+    computerApplication: 44,
+    pythonI: 89,
+    introductionToComputer: 84,
+    englishI: 86,
+    average: 80
+  },
+  {
+    studentId: "B5SC1647",
+    name: "Faadumo Xasan Cabdi",
+    calculusI: 94,
+    computerApplication: 77,
+    pythonI: 76,
+    introductionToComputer: 42,
+    englishI: 66,
+    average: 71
+  },
+  {
+    studentId: "B5SC1648",
+    name: "Nashaad Farxaan Maxamed",
+    calculusI: 90,
+    computerApplication: 77,
+    pythonI: 65,
+    introductionToComputer: 80,
+    englishI: 66,
+    average: 76
+  },
+  {
+    studentId: "B5SC1649",
+    name: "Zakariya Maxamed Axmed",
+    calculusI: 79,
+    computerApplication: 81,
+    pythonI: 84,
+    introductionToComputer: 85,
+    englishI: 82,
+    average: 82
+  },
+  {
+    studentId: "B5SC1651",
+    name: "Cumar Cabdi Cali",
+    calculusI: 60,
+    computerApplication: 80,
+    pythonI: 85,
+    introductionToComputer: 76,
+    englishI: 71,
+    average: 74
+  },
+  {
+    studentId: "B5SC1652",
+    name: "Nasteexo maxamed cismaan barqade",
+    calculusI: 76,
+    computerApplication: 40,
+    pythonI: 67,
+    introductionToComputer: 74,
+    englishI: 71,
+    average: 66
+  },
+  {
+    studentId: "B5SC1660",
+    name: "Axmed Ibrahim Cumar yuusuf",
+    calculusI: 71,
+    computerApplication: 85,
+    pythonI: 85,
+    introductionToComputer: 82,
+    englishI: 64,
+    average: 77
+  },
+  {
+    studentId: "B5SC1661",
+    name: "Cabdikafild Shariff maxamed",
+    calculusI: 93,
+    computerApplication: 89,
+    pythonI: 79,
+    introductionToComputer: 90,
+    englishI: 76,
+    average: 85
+  },
+  {
+    studentId: "B5SC1662",
+    name: "Yasac Mohamud Mohamed",
+    calculusI: 80,
+    computerApplication: 73,
+    pythonI: 88,
+    introductionToComputer: 72,
+    englishI: 75,
+    average: 78
+  },
+  {
+    studentId: "B5SC1686",
+    name: "Farhio Abdi Hassan",
+    calculusI: 91,
+    computerApplication: 80,
+    pythonI: 86,
+    introductionToComputer: 78,
+    englishI: 75,
+    average: 82
+  },
+  {
+    studentId: "B5SC1689",
+    name: "Abdikadir Jeylani Mohamed",
+    calculusI: 60,
+    computerApplication: 74,
+    pythonI: 97,
+    introductionToComputer: 85,
+    englishI: 78,
+    average: 79
+  }
+];
+
+    function fetchResults() {
+      const studentId = document.getElementById("studentId").value;
+      const resultDiv = document.getElementById("results");
+      const errorDiv = document.getElementById("error");
+      const student = studentData.find(data => data.studentId === studentId);
+
+      if (student) {
+        // Muuji natiijooyinka ardayga
+        document.getElementById("studentName").textContent = student.name;
+        document.getElementById("mathScore").textContent = student.calculusI;
+        document.getElementById("introCsScore").textContent = student.introductionToComputer;
+        document.getElementById("computerAppScore").textContent = student.computerApplication
+        document.getElementById("pythonScore").textContent = student.pythonI;
+        document.getElementById("englishScore").textContent = student.englishI;
+        document.getElementById("Average").textContent =student.average
+        resultDiv.classList.remove("hidden");
+        errorDiv.classList.add("hidden");
+      } else {
+        // Muuji farriin khalad
+        resultDiv.classList.add("hidden");
+        errorDiv.classList.remove("hidden");
+      }
+    }
+  </script>
+</body>
+</html>
