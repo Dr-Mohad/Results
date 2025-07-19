@@ -1,0 +1,15 @@
+def find_duplicates(letter_list):
+    # Create a dictionary to store the frequency of each letter
+    letter_count = {}
+    duplicates = []
+    
+    # Iterate through the list and count the occurrences of each letter
+    for letter in letter_list:
+        if letter in letter_count:
+            letter_count[letter] += 1
+        else:
+            letter_count[letter] = 1
+    return letter_count
+letters = ['a', 'b', 'c', 'a', 'd', 'e', 'b', 'f']
+print(find_duplicates(letters))
+ 
